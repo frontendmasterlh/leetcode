@@ -1,6 +1,12 @@
 package leetcode_S;
 
 public class SortColors {
+    // private void swap (int[] num, int i, int j) { //What if i==j? It won't work!!!
+    //     num[i] ^= num[j];
+    //     num[j] ^= num[i];
+    //     num[i] ^= num[j];
+    // }
+	
 	private void swap (int[] A, int a, int b){
         int temp = A[a];
         A[a] = A[b];

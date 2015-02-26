@@ -16,7 +16,7 @@ public class ValidPalindrome {
         for (int i=0; i< s.length(); i++) {
             if (isValid(s, i)){
                 if (s.charAt(i)>='A' && s.charAt(i) <= 'Z')
-                    temp.append((char)(s.charAt(i) - 'A' + 'a'));
+                    temp.append((char)(s.charAt(i) - 'A' + 'a'));//cast the type into char
                 else
                     temp.append(s.charAt(i));
             }

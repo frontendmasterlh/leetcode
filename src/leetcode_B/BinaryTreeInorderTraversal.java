@@ -6,11 +6,9 @@ public class BinaryTreeInorderTraversal {
 	public void dfs (TreeNode root, ArrayList<Integer> res){//Easy to use recursion.
         if (root==null)
             return ;
-        if (root.left!=null)
-            dfs(root.left, res);
+        dfs(root.left, res);
         res.add(root.val);
-        if (root.right!=null)
-            dfs(root.right, res);
+        dfs(root.right, res);
     }
     
     

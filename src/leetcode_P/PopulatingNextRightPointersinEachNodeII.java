@@ -4,6 +4,7 @@ import java.util.*;
 
 public class PopulatingNextRightPointersinEachNodeII {
 	public void connect(TreeLinkNode root) {
+//		//The 1st method: Using Queue with the size. 
 //        if (root==null)
 //            return ;
 //        Queue<TreeLinkNode> q = new LinkedList<TreeLinkNode> ();
@@ -22,6 +23,29 @@ public class PopulatingNextRightPointersinEachNodeII {
 //                }
 //            }
 //        }
+		
+        // //The 2nd method: Using Queue. Time: O(n)
+        // if (root == null)
+        //     return ;
+        // Queue<TreeLinkNode> q = new LinkedList<TreeLinkNode> ();
+        // q.offer(root);
+        // q.offer(null);
+        // while (!q.isEmpty()){
+        //     TreeLinkNode cur = q.poll();
+        //     if (cur != null) {
+        //         cur.next = q.peek();
+        //         if (cur.left != null)
+        //             q.offer(cur.left);
+        //         if (cur.right != null)
+        //             q.offer(cur.right);
+        //     }else {
+        //         if (!q.isEmpty()){
+        //             q.offer(null);
+        //         }
+        //     }
+        // }		
+		
+		//The 3rd method: Using recursion. Time: O(n)
 		if (root==null)
             return ;
          TreeLinkNode leftnext = null;
@@ -61,15 +85,6 @@ public class PopulatingNextRightPointersinEachNodeII {
          }
          connect(root.right);
          connect(root.left);
-        // while (topleft!=null) {
-        //     TreeLinkNode now = topleft;
-        //     TreeLinkNode pre = null;
-        //     while (now != null) {
-        //         if (now.right!=null && pre!=null){
-        //             now.right.next = pre
-        //         }
-        //     }
-        // }
     }
 	
 	static public void main (String[] argv){

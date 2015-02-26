@@ -3,10 +3,21 @@ package leetcode_B;
 import java.util.*;
 
 public class BinaryTreePostorderTraversal {
+	
+	private void dfs (TreeNode root, ArrayList<Integer> res) {
+		if (root == null)
+			return ;
+		dfs (root.left, res);
+		dfs (root.right, res);
+		res.add(root.val);
+	}
+	
 	public ArrayList<Integer> postorderTraversal(TreeNode root) {
         ArrayList<Integer> res = new ArrayList<Integer> ();
         if (root==null)
             return res;
+        dfs(root, res);
+        
         Stack<TreeNode> stack = new Stack<TreeNode> ();
         stack.push(root);
         while (!stack.isEmpty()) {
