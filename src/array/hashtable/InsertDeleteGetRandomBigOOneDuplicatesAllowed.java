@@ -3,7 +3,9 @@ package array.hashtable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -12,63 +14,53 @@ import java.util.Set;
  */
 public class InsertDeleteGetRandomBigOOneDuplicatesAllowed {
 
-    HashMap<Integer, Set<Integer>> map;
-    List<Integer> nums;
-    int size;
+    Map<Integer, HashSet<Integer>> map;
+    List<Integer> list;
+    Random random;
 
     /** Initialize your data structure here. */
     public InsertDeleteGetRandomBigOOneDuplicatesAllowed() {
         map = new HashMap<>();
-        nums = new ArrayList<>();
-        size = 0;
+        list = new ArrayList<>();
+        random = new Random();
     }
 
     /** Inserts a value to the collection. Returns true if the collection did not already contain the specified element. */
     public boolean insert(int val) {
-        boolean res = true;
-        if (map.containsKey(val)) {
-            res = false;
-        } else {
-            map.put(val, new HashSet<>());
+        HashSet<Integer> set = map.get(val);
+        if (set == null) {
+            set = new LinkedHashSet<>();
+            map.put(val, set);
         }
-        map.get(val).add(size);
-        nums.add(val);
-        size += 1;
-        return res;
+        set.add(list.size());
+        map.put(val, set);
+        list.add(val);
+        return set.size() == 1;
     }
 
     /** Removes a value from the collection. Returns true if the collection contained the specified element. */
     public boolean remove(int val) {
-        if (map.isEmpty() || !map.containsKey(val)) {
-            return false;
+        boolean contain = map.containsKey(val);
+        if (!contain) return false;
+        int loc = map.get(val).iterator().next();
+        map.get(val).remove(loc);
+        if (loc < list.size() - 1) {
+            int lastone = list.get(list.size() - 1);
+            list.set(loc, lastone);
+            map.get(lastone).remove(list.size() - 1);
+            map.get(lastone).add(loc);
         }
+        list.remove(list.size() - 1);
 
-        size -= 1;
-        int lastNum = nums.get(size);
-        Set<Integer> idxSet = map.get(val);
-        if (lastNum != val) {
-            int idx = idxSet.iterator().next();
-            Set<Integer> lastNumIdxSet = map.get(lastNum);
-            lastNumIdxSet.remove(size);
-            lastNumIdxSet.add(idx);
-            nums.set(idx, lastNum);
-        }
-
-        if (idxSet.size() == 1) {
+        if (map.get(val).isEmpty()) {
             map.remove(val);
-        } else {
-            idxSet.remove(size);
         }
-
-        nums.remove(size);
         return true;
-
     }
 
     /** Get a random element from the collection. */
     public int getRandom() {
-        Random random = new Random();
-        return nums.get(random.nextInt(size));
+        return list.get(random.nextInt(list.size()));
     }
 
     public static void main(String[] args) {
