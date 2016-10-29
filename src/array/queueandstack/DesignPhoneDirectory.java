@@ -1,4 +1,4 @@
-package array.queue;
+package array.queueandstack;
 
 import java.util.HashSet;
 import java.util.LinkedList;

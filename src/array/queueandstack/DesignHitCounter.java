@@ -1,7 +1,4 @@
-package array.queue;
-
-import java.util.LinkedList;
-import java.util.Queue;
+package array.queueandstack;
 
 /**
  * Design a hit counter which counts the number of hits received in the past 5 minutes.
@@ -39,26 +36,26 @@ import java.util.Queue;
 public class DesignHitCounter {
 
 //    // Method for Question 1
-//    Queue<Integer> queue;
+//    Queue<Integer> queueandstack;
 //
 //    /** Initialize your data structure here. */
 //    public DesignHitCounter() {
-//        queue = new LinkedList<>();
+//        queueandstack = new LinkedList<>();
 //    }
 //
 //    /** Record a hit.
 //     @param timestamp - The current timestamp (in seconds granularity). */
 //    public void hit(int timestamp) {
-//        queue.offer(timestamp);
+//        queueandstack.offer(timestamp);
 //    }
 //
 //    /** Return the number of hits in the past 5 minutes.
 //     @param timestamp - The current timestamp (in seconds granularity). */
 //    public int getHits(int timestamp) {
-//        while (!queue.isEmpty() && queue.peek() + 300 <= timestamp) {
-//            queue.poll();
+//        while (!queueandstack.isEmpty() && queueandstack.peek() + 300 <= timestamp) {
+//            queueandstack.poll();
 //        }
-//        return queue.size();
+//        return queueandstack.size();
 //    }
 
 
