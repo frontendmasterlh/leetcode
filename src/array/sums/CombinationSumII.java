@@ -35,15 +35,42 @@ public class CombinationSumII {
         }
     }
 
+
+//    public List<List<Integer>> combinationSum2WithDP(int[] candidates, int target) {
+//        List<List<Integer>> res = new ArrayList<>();
+//        if (candidates == null || candidates.length == 0 || target == 0) {
+//            return res;
+//        }
+//        int[] dp = new int[target + 1];
+//        dp[0] = 1;
+//        for (int i = 0; i < candidates.length; i++) {
+//            for (int s = 0; s <= target; s++) {
+//                if (s >= candidates[i]) {
+//                    dp[s] += dp[s - candidates[i]];
+//                }
+//            }
+//        }
+//        return dp[target];
+//    }
+
     public static void main(String[] args) {
-        CombinationSumII combinationSumII = new CombinationSumII();
-        int[] nums = {10, 1, 2, 7, 6, 1, 5};
-        List<List<Integer>> res = combinationSumII.combinationSum2(nums, 8);
-        for (List<Integer> re : res) {
-            for (Integer r : re) {
-                System.out.print(r + " ");
-            }
-            System.out.println();
+        if (Integer.MAX_VALUE + 1 == -(Integer.MIN_VALUE)) {
+            System.out.println("Haha");
+        } else if (Integer.MAX_VALUE + 1 > -(Integer.MIN_VALUE)) {
+            System.out.println("hehe");
         }
+
+        int i = Math.max(Integer.MAX_VALUE + 1, 9);
+        System.out.println(i);
+
+//        CombinationSumII combinationSumII = new CombinationSumII();
+//        int[] nums = {10, 1, 2, 7, 6, 1, 5};
+//        List<List<Integer>> res = combinationSumII.combinationSum2(nums, 8);
+//        for (List<Integer> re : res) {
+//            for (Integer r : re) {
+//                System.out.print(r + " ");
+//            }
+//            System.out.println();
+//        }
     }
 }
