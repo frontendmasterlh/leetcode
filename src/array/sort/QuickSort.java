@@ -1,6 +1,7 @@
 package array.sort;
 
 import java.util.Random;
+import java.util.Stack;
 
 /**
  * Created by jli1 on 11/5/16.
@@ -11,7 +12,8 @@ public class QuickSort {
         if (nums == null || nums.length == 0) {
             return;
         }
-        quickSort(nums, 0, nums.length - 1);
+//        quickSort(nums, 0, nums.length - 1);
+        quickSortWithIteration(nums, 0, nums.length - 1);
     }
 
     private void quickSort(int[] nums, int left, int right) {
@@ -50,6 +52,26 @@ public class QuickSort {
         int temp = nums[i];
         nums[i] = nums[j];
         nums[j] = temp;
+    }
+
+    private void quickSortWithIteration(int[] nums, int left, int right) {
+        Stack<Integer> stack = new Stack<>();
+        stack.push(left);
+        stack.push(right);
+        while (!stack.isEmpty()) {
+            int r = stack.pop();
+            int l = stack.pop();
+
+            int pivotPos = partition(nums, l, r);
+            if (pivotPos - 1 > l) {
+                stack.push(l);
+                stack.push(pivotPos - 1);
+            }
+            if (pivotPos + 1 < r) {
+                stack.push(pivotPos + 1);
+                stack.push(r);
+            }
+        }
     }
 
     public static void main(String[] args) {

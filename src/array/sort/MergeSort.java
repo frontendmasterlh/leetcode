@@ -41,10 +41,25 @@ public class MergeSort {
         }
     }
 
+    // Time: O(nlogn) Space: O(n)
+    public void mergeSortWithIteration(int[] nums) {
+        int curSize = 1;
+        int left = 0;
+        int[] helper = new int[nums.length];
+        for (curSize = 1; curSize < nums.length; curSize *= 2) {
+            for (left = 0; left < nums.length - 1; left += 2 * curSize) {
+                int mid = left + curSize - 1;
+                int right = Math.min(left + 2 * curSize - 1, nums.length - 1);
+                merge(nums, helper, left, mid, right);
+            }
+        }
+    }
+
     public static void main(String[] args) {
         MergeSort m = new MergeSort();
         int[] nums = {3, 5, 1, 2, 8, 4};
-        m.mergeSort(nums);
+//        m.mergeSort(nums);
+        m.mergeSortWithIteration(nums);
         for (int num : nums) {
             System.out.print(num + " ");
         }
