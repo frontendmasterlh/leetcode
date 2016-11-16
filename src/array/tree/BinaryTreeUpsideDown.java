@@ -40,8 +40,23 @@ public class BinaryTreeUpsideDown {
             left.left = right;
             left.right = root;
             root.left = null;
-            return root;
+            return res;
         }
         return root;
+    }
+
+    public TreeNode upsideDownBinaryTreeWithIteration(TreeNode root) {
+        TreeNode node = root;
+        TreeNode parent = null;
+        TreeNode right = null;
+        while (node != null) {
+            TreeNode left = root.left;
+            node.left = right;
+            right = node.right;
+            node.right = parent;
+            parent = node;
+            node = left;
+        }
+        return parent;
     }
 }

@@ -53,6 +53,8 @@ public class IsomorphicStrings {
         System.out.println(i.isIsomorphic("egg", "add"));
         System.out.println(i.isIsomorphic("foo", "bar"));
 
+        System.out.println(i.isIsomorphic("ab", "ca"));
+
         System.out.println(i.isIsomorphicII("egg", "add"));
         System.out.println(i.isIsomorphicII("foo", "bar"));
     }
