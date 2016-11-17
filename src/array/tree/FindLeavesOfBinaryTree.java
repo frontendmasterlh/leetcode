@@ -8,22 +8,22 @@ import java.util.List;
 
  Example:
  Given binary tree
- 1
- / \
- 2   3
- / \
+     1
+    / \
+   2   3
+  / \
  4   5
  Returns [4, 5, 3], [2], [1].
 
  Explanation:
  1. Remove the leaves [4, 5, 3] from the tree
 
- 1
- /
+    1
+   /
  2
  2. Remove the leaf [2] from the tree
 
- 1
+    1
  3. Remove the leaf [1] from the tree
 
  []
@@ -76,12 +76,41 @@ public class FindLeavesOfBinaryTree {
         return root != null && root.left == null && root.right == null;
     }
 
+
+    public List<List<Integer>> findLeavesWithDivideAndConquer(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        divideAndConquerHelper(root, res);
+        return res;
+    }
+
+    private int divideAndConquerHelper(TreeNode root, List<List<Integer>> res) {
+        if (root == null) {
+            return -1;
+        }
+        int left = divideAndConquerHelper(root.left, res);
+        int right = divideAndConquerHelper(root.right, res);
+        int cur = Math.max(left, right) + 1;
+        if (cur == res.size()) {
+            res.add(new ArrayList<>());
+        }
+        res.get(cur).add(root.val);
+        return cur;
+    }
+
     public static void main(String[] args) {
         FindLeavesOfBinaryTree f = new FindLeavesOfBinaryTree();
         TreeNode root = new TreeNode(1);
         root.left = new TreeNode(2);
         root.right = new TreeNode(3);
         root.left.right = new TreeNode(4);
+        List<List<Integer>> res0 = f.findLeavesWithDivideAndConquer(root);
+        for (List<Integer> list : res0) {
+            for (Integer num : list) {
+                System.out.print(num + " ");
+            }
+            System.out.println();
+        }
+
         List<List<Integer>> res = f.findLeaves(root);
         for (List<Integer> list : res) {
             for (Integer num : list) {
