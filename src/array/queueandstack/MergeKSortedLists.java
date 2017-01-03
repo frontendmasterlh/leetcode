@@ -1,6 +1,8 @@
 package array.queueandstack;
 
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.PriorityQueue;
 
 /**
@@ -41,5 +43,26 @@ public class MergeKSortedLists {
             }
         }
         return dummy.next;
+    }
+
+    public static void main(String[] args) {
+        Map<Integer, Integer> map = new HashMap<>();
+
+        map.put(1, 1);
+        map.put(2, 2);
+        map.put(3, 3);
+        PriorityQueue<Map.Entry<Integer, Integer>> pq = new PriorityQueue<>(new Comparator<Map.Entry<Integer, Integer>>() {
+            public int compare(Map.Entry<Integer, Integer> o1, Map.Entry<Integer, Integer> o2) {
+                return o1.getValue() - o2.getValue();
+            }
+        });
+        for (Map.Entry entry : map.entrySet()) {
+            pq.offer(entry);
+        }
+        System.out.println(pq.peek().getKey() + " " + pq.peek().getValue());
+        map.put(2, 0);
+        System.out.println(pq.peek().getKey() + " " + pq.peek().getValue()); // This shows that when entry's value has changed, the pq will not know.
+        pq.poll();
+        System.out.println(pq.peek().getKey() + " " + pq.peek().getValue());
     }
 }

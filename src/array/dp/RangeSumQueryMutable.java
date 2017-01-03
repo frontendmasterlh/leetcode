@@ -111,8 +111,10 @@ public class RangeSumQueryMutable {
         root.sum = root.left.sum + root.right.sum;
     }
 
+
+
     private int sumRangeHelper(TreeNode root, int i, int j) {
-        if (root == null || i < root.start || j > root.end || i > j) {
+        if (root == null || j < root.start || i > root.end || i > j) {
             return 0;
         }
         if (i <= root.start && j >= root.end) { // if [i, j] covers [root.start, root.end]
