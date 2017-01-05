@@ -1,7 +1,7 @@
 package array.dfs;
 
 /**
- * Created by jli1 on 11/2/16.
+ * https://leetcode.com/problems/regular-expression-matching/
  */
 public class RegularExpressionMatching {
     public boolean isMatch(String s, String p) {
