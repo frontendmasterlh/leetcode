@@ -42,6 +42,7 @@ public class BasicCalculator {
 
     public static void main(String[] args) {
         BasicCalculator b = new BasicCalculator();
+        System.out.println(b.calculate("2 - (1 + 3)"));
         System.out.println(b.calculate("6 + (2 - 5)"));
     }
 }
