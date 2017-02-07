@@ -40,6 +40,22 @@ public class FindTheDifference {
         return c;
     }
 
+    public char findTheDifferenceArray(String s, String t) {
+         int[] mem = new int[26];
+         for (int i = 0; i < s.length(); i++) {
+             mem[s.charAt(i) - 'a']++;
+         }
+         char res = '\0';
+         for (int j = 0; j < t.length(); j++) {
+             mem[t.charAt(j) - 'a']--;
+             if (mem[t.charAt(j) - 'a'] < 0) {
+                 res = t.charAt(j);
+                 break;
+             }
+         }
+         return res;
+    }
+
     public static void main(String[] args) {
         FindTheDifference f = new FindTheDifference();
         System.out.println(f.findTheDifference("abcd", "abcde"));
