@@ -1,7 +1,9 @@
 package array.dfs;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
     In "the 100 game," two players take turns adding, to a running
@@ -22,16 +24,16 @@ public class CanIWin {
 
     //The catch is: when the largest number remaining is greater than the target remaining, the player is sure to win
     //helper returns true if the CURRENT player can win
-    public boolean canIWin(int max, int target) {
-        if (max < target || target <= 0) {
-            return false;
-        }
-        List<Integer> pool = new ArrayList<>();
-        for (int i = 1; i <= max; i++) {
-            pool.add(i);
-        }
-        return helper(pool, target);
-    }
+//    public boolean canIWin(int max, int target) {
+//        if (max < target || target <= 0) {
+//            return false;
+//        }
+//        List<Integer> pool = new ArrayList<>();
+//        for (int i = 1; i <= max; i++) {
+//            pool.add(i);
+//        }
+//        return helper(pool, target);
+//    }
 
     private boolean helper(List<Integer> pool, int target) {
         if (pool.get(pool.size() - 1) >= target) {
@@ -46,5 +48,56 @@ public class CanIWin {
             }
         }
         return false;
+    }
+
+
+    public boolean canIWin(int maxChoosableInteger, int desiredTotal) {
+        int total = maxChoosableInteger * (maxChoosableInteger + 1) / 2;
+        if (total < desiredTotal) {
+            return false;
+        }
+        char[] states = new char[maxChoosableInteger];
+        for (int i = 0; i < states.length; i++) {
+            states[i] = '0';
+        }
+        Map<String, Boolean> map = new HashMap<>();
+        return dfsHelper(desiredTotal, states, map);
+    }
+
+    private boolean dfsHelper(int total, char[] states, Map<String, Boolean> map) {
+        String key = new String(states);
+        Boolean result = map.get(key);
+        if (result != null) {
+            return result;
+        }
+        for (int i = 0; i < states.length; i++) {
+            if (states[i] == '0') {
+                states[i] = '1';
+                if (total <= i + 1 || !dfsHelper(total - (i + 1), states, map)) { // The relation here is OR!
+                    map.put(key, true);
+                    states[i] = '0';
+                    return true;
+                }
+                states[i] = '0';
+            }
+        }
+        map.put(key, false);
+        return false;
+    }
+
+    public static void main(String[] args) {
+        String a = "123 456";
+        String b = "123 456";
+        String[] array1 = a.split(" ");
+        String[] array2 = b.split(" ");
+        System.out.println(array1);
+        System.out.println(array2);
+        System.out.println(array1[0] == array2[0]);
+        String[] array3 = a.split(" ");
+        System.out.println(array1[0] == array3[0]);
+
+
+        CanIWin c = new CanIWin();
+        System.out.println(c.canIWin(10, 0));
     }
 }

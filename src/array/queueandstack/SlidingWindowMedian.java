@@ -81,7 +81,7 @@ public class SlidingWindowMedian {
         if (maxHeap.size() > minHeap.size() + 1) {
             minHeap.offer(maxHeap.poll());
         }
-        if (minHeap.size() > maxHeap.size() + 1) {
+        if (minHeap.size() > maxHeap.size()) {
             maxHeap.offer(minHeap.poll());
         }
     }
@@ -102,7 +102,8 @@ public class SlidingWindowMedian {
 
     public static void main(String[] args) {
         SlidingWindowMedian s = new SlidingWindowMedian();
-        int[] nums = {Integer.MAX_VALUE, Integer.MAX_VALUE};//{1,3,-1,-3,5,3,6,7};
+        int[] nums = {2147483647,1,2,3,4,5,6,7,2147483647};
+//        int[] nums = {Integer.MAX_VALUE, Integer.MAX_VALUE};//{1,3,-1,-3,5,3,6,7};
         int k = 2;
         double[] res = s.medianSlidingWindow(nums, k);
         for (double d : res) {
