@@ -46,7 +46,7 @@ public class SerializeAndDeserializeBinaryTree {
                 }
             }
         }
-        return sb.toString().substring(0, sb.length() - 1);
+        return sb.substring(0, sb.length() - 1);
     }
 
     // Decodes your encoded data to tree.

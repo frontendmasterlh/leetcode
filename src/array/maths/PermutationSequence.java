@@ -35,4 +35,9 @@ public class PermutationSequence {
         }
         return sb.toString();
     }
+
+    public static void main(String[] args) {
+        PermutationSequence p = new PermutationSequence();
+        System.out.println(p.getPermutation(3, 5));
+    }
 }
