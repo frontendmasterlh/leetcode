@@ -50,11 +50,40 @@ public class ImplementStrStr {
         return -1;
     }
 
+
+    private int primeRK = 16777619;
+    public boolean isMatchII(byte[] file, byte[] str) {
+        if (str == null || str.length == 0) {
+            return true;
+        }
+        long sHash = 0;
+        long fHash = 0;
+        for (int i = 0; i < str.length; i++) {
+            sHash = sHash * primeRK + str[i];
+            fHash = fHash * primeRK + file[i];
+        }
+        if (sHash == fHash) {
+            return true;
+        }
+        long base = (long)Math.pow(primeRK, str.length - 1);
+        for (int i = str.length; i < file.length; i++) {
+            fHash = (fHash % base) * primeRK + file[i];
+            if (fHash == sHash) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         ImplementStrStr i = new ImplementStrStr();
-        String haystack = "aaaabaaabbabbaaaaaabbabbbaaabababaaaaabbbbbbbbbbbbbbbaabbbbabbaababbbababababaaaabbbbaaabababbbaaabbaabbabbbbbababbabbaabbbabaabaaaaabbbaaaaaabaaaabababababbaabaabbaaaaaaaababbabaa";
-        String needle = "aabbaaaabbbbaabaaabaabbaaababbabbbbbaba";
 
-        System.out.println(i.strStr(haystack, needle));
+        byte[] file = {5, 1,2 ,4};
+        byte[] str = {1, 2, 4};
+        System.out.println(i.isMatchII(file, str));
+//        String haystack = "aaaabaaabbabbaaaaaabbabbbaaabababaaaaabbbbbbbbbbbbbbbaabbbbabbaababbbababababaaaabbbbaaabababbbaaabbaabbabbbbbababbabbaabbbabaabaaaaabbbaaaaaabaaaabababababbaabaabbaaaaaaaababbabaa";
+//        String needle = "aabbaaaabbbbaabaaabaabbaaababbabbbbbaba";
+//
+//        System.out.println(i.strStr(haystack, needle));
     }
 }

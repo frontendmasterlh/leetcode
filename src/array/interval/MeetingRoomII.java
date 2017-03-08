@@ -44,16 +44,8 @@ public class MeetingRoomII {
         // Method 2: Use HashMap to store the clock O(n + nlogn)
         Map<Integer, Integer> map = new HashMap<>();
         for (Interval interval : intervals) {
-            if (!map.containsKey(interval.start)) {
-                map.put(interval.start, 1);
-            } else {
-                map.put(interval.start, map.get(interval.start) + 1);
-            }
-            if (!map.containsKey(interval.end)) {
-                map.put(interval.end, -1);
-            } else {
-                map.put(interval.end, map.get(interval.end) - 1);
-            }
+            map.put(interval.start, map.getOrDefault(interval.start,0) + 1);
+            map.put(interval.end, map.getOrDefault(interval.end, 0) - 1);
         }
 
         PriorityQueue<Map.Entry<Integer, Integer>> pq = new PriorityQueue<>(new Comparator<Map.Entry<Integer, Integer>>() {
