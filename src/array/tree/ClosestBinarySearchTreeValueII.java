@@ -72,6 +72,88 @@ public class ClosestBinarySearchTreeValueII {
         getSucessor(root.left, stack, target);
     }
 
+    public List<Integer> closestKValuesII(TreeNode root, double target, int k) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        Stack<TreeNode> pred = new Stack<>();
+        Stack<TreeNode> succ = new Stack<>();
+        initPredecessor(root, pred, target);
+        initSucessor(root, succ, target);
+        if (!pred.isEmpty() && !succ.isEmpty() && pred.peek().val == succ.peek().val) {
+            getPredecessorII(pred);
+        }
+        for (int i = 0; i < k ; i++) {
+            if (pred.isEmpty()) {
+                res.add(getSucessorII(succ));
+            } else if (succ.isEmpty()) {
+                res.add(getPredecessorII(pred));
+            } else {
+                double prediff = Math.abs(pred.peek().val - target);
+                double sucdiff = Math.abs(succ.peek().val - target);
+                if (prediff < sucdiff) {
+                    res.add(getPredecessorII(pred));
+                } else {
+                    res.add(getSucessorII(succ));
+                }
+            }
+        }
+        return res;
+    }
+
+    private void initPredecessor(TreeNode root, Stack<TreeNode> pred, double target) {
+        while (root != null) {
+            double diff = Math.abs(root.val - target);
+            if (diff < 0.001) {
+                pred.push(root);
+                break;
+            } else if (root.val < target) {
+                pred.push(root);
+                root = root.right;
+            } else {
+                root = root.left;
+            }
+        }
+    }
+
+    private void initSucessor(TreeNode root, Stack<TreeNode> succ, double target) {
+        while (root != null) {
+            double diff = Math.abs(root.val - target);
+            if (diff < 0.001) {
+                succ.push(root);
+                break;
+            } else if (root.val > target) {
+                succ.push(root);
+                root = root.left;
+            } else {
+                root = root.right;
+            }
+        }
+    }
+
+    private int getPredecessorII(Stack<TreeNode> pred) {
+        int res = pred.peek().val;
+        TreeNode cur = pred.pop();
+        cur = cur.left;
+        while (cur != null) {
+            pred.push(cur);
+            cur = cur.right;
+        }
+        return res;
+    }
+
+    private int getSucessorII(Stack<TreeNode> succ) {
+        int res = succ.peek().val;
+        TreeNode cur = succ.pop();
+        cur = cur.right;
+        while (cur != null) {
+            succ.push(cur);
+            cur = cur.left;
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         ClosestBinarySearchTreeValueII c = new ClosestBinarySearchTreeValueII();
         TreeNode root = new TreeNode(10);
@@ -80,6 +162,10 @@ public class ClosestBinarySearchTreeValueII {
         root.right = new TreeNode(15);
         List<Integer> res = c.closestKValues(root, 3.5, 3);
         for (int num : res) {
+            System.out.println(num);
+        }
+        List<Integer> res2 = c.closestKValuesII(root, 3.5, 3);
+        for (int num : res2) {
             System.out.println(num);
         }
     }

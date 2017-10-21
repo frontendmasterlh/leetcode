@@ -14,7 +14,7 @@ class Point {
 //Given n points on a 2D plane, find the maximum number of points that lie on the same straight line.
 
 public class MaxPointsonaLine {
-	public int maxPoints(Point[] points) {
+	public int maxPoints_couldnot_handle_max_k_problem(Point[] points) {
         if (points==null || points.length==0)
             return 0;
         if (points.length==1)
@@ -41,10 +41,10 @@ public class MaxPointsonaLine {
                             map.put((float)Integer.MAX_VALUE, map.get((float)Integer.MAX_VALUE)+1);
                     }else {
                         float k = (float)(y1 - y) / (float)(x1 - x);
-                        if (map.containsKey(k)){//get可能为空。
+                        if (map.containsKey(k)){//
                             map.put(k, (map.get(k) + 1));
                         }else {
-                            map.put(k, 2); //两点成一线。
+                            map.put(k, 2); //
                         }
                     }
                 }
@@ -56,8 +56,59 @@ public class MaxPointsonaLine {
         }
         return max;
     }
-	static public void main (String argv[]){
+
+    public int maxPoints(Point[] points) {
+        if (points == null || points.length == 0) {
+            return 0;
+        }
+        int max = 0;
+        Map<String, Integer> map = new HashMap<>();
+        for (int i = 0; i < points.length; i++) {
+            map.clear();
+            int localMax = 0;
+            int samePosition = 0;
+            for (int j = 0; j < points.length; j++) {
+                if (i == j) {
+                    continue;
+                }
+                if (points[i].x == points[j].x && points[i].y == points[j].y) {
+                    samePosition++;
+                    continue;
+                }
+                int x = points[j].x - points[i].x;
+                int y = points[j].y - points[i].y;
+                int gcd = generateGCD(y, x);
+                if (gcd != 0) {
+                    y /= gcd;
+                    x /= gcd;
+                }
+                String newKey = y + "/" + x;
+                if (map.containsKey(newKey)) {
+                    map.put(newKey, map.get(newKey) + 1);
+                } else {
+                    map.put(newKey, 1);
+                }
+                localMax = Math.max(localMax, map.get(newKey));
+            }
+            max = Math.max(max, localMax + samePosition + 1); // Plus 1 must be done here; map could be empty.
+        }
+        return max;
+    }
+
+    private int generateGCD(int a, int b) {
+        if (b == 0) {
+            return a;
+        } else {
+            return generateGCD(b, a%b);
+        }
+    }
+
+
+	public static void main (String argv[]){
 		Point[] points={new Point(), new Point(1,1), new Point(3,4), new Point(3,4)};
 		System.out.println(new MaxPointsonaLine ().maxPoints(points));
-	}
+        Point[] points2 ={new Point(), new Point(94911151,94911150), new Point(94911152,94911151)};
+        System.out.println(new MaxPointsonaLine ().maxPoints(points2));
+
+    }
 }

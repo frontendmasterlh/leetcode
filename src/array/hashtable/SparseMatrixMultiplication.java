@@ -53,7 +53,7 @@ public class SparseMatrixMultiplication {
         if (A == null || A[0] == null || B == null || B[0] == null) {
             return null;
         }
-        Map<Integer, HashMap<Integer, Integer>> map = new HashMap<>();
+        Map<Integer, Map<Integer, Integer>> map = new HashMap<>();
         int m = A.length;
         int n = A[0].length;
         int bn = B[0].length;

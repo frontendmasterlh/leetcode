@@ -20,6 +20,9 @@ public class PaintHouse {
         int m = costs.length;
         int n = costs[0].length;
         int[][] dp = new int[m][n];
+        for (int i = 0; i < 3; i++) {
+            dp[0][i] = costs[0][i];
+        }
         for (int i  = 1; i < m; i++) {
             dp[i][0] = Math.min(dp[i - 1][1], dp[i - 1][2]) + costs[i][0];
             dp[i][1] = Math.min(dp[i - 1][0], dp[i - 1][2]) + costs[i][1];

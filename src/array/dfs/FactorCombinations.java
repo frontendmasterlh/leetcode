@@ -21,7 +21,8 @@ public class FactorCombinations {
             return res;
         }
         List<Integer> temp = new ArrayList<>();
-        dfsHelper(n, 2, temp, res);
+//        dfsHelper(n, 2, temp, res);
+        dfsHelperII(n, 2, temp, res);
         return res;
     }
 
@@ -44,9 +45,21 @@ public class FactorCombinations {
         temp.remove(temp.size() - 1);
     }
 
+    private void dfsHelperII(int n, int factor, List<Integer> temp, List<List<Integer>> res) {
+        for (int i = factor; i <= Math.sqrt(n); i++) {
+            if (n % i == 0) {
+                List<Integer> newTemp = new ArrayList<>(temp);
+                newTemp.add(i);
+                dfsHelperII(n / i, i, newTemp, res);
+                newTemp.add(n / i);
+                res.add(newTemp);
+            }
+        }
+    }
+
     public static void main(String[] args) {
         FactorCombinations f = new FactorCombinations();
-        List<List<Integer>> nums = f.getFactors(8);
+        List<List<Integer>> nums = f.getFactors(12);
         for (List<Integer> list : nums) {
             for (Integer num : list) {
                 System.out.print(num + " ");

@@ -19,34 +19,22 @@ public class SerializeAndDeserializeBinaryTree {
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
         if (root == null) {
-            return "";
+            return null;
         }
         StringBuilder sb = new StringBuilder();
-        Queue<TreeNode> q = new LinkedList<>();
-        q.offer(root);
-        int countNull = 0;
-        while (!q.isEmpty()) {
-            TreeNode cur = q.poll();
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            TreeNode cur = queue.poll();
             if (cur != null) {
-                sb.append(cur.val + ",");
-                if (cur.left == null) {
-                    countNull++;
-                }
-                q.offer(cur.left);
-                if (cur.right == null) {
-                    countNull++;
-                }
-                q.offer(cur.right);
+                sb.append(cur.val).append(",");
+                queue.offer(cur.left);
+                queue.offer(cur.right);
             } else {
-                if (--countNull == q.size()) {
-                    q.clear();
-                    break;
-                } else {
-                    sb.append("null,");
-                }
+                sb.append("null").append(",");
             }
         }
-        return sb.substring(0, sb.length() - 1);
+        return sb.toString().substring(0, sb.length() - 1);
     }
 
     // Decodes your encoded data to tree.

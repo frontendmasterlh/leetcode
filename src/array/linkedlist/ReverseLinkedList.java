@@ -38,12 +38,34 @@ public class ReverseLinkedList {
         return newHead;
     }
 
+    public ListNode reverseTailRecursion(ListNode head) {
+        if (head == null) {
+            return head;
+        }
+        return tailRecursion(null, head);
+    }
+
+    private ListNode tailRecursion(ListNode pre, ListNode cur) {
+        if (cur.next == null) {
+            cur.next = pre;
+            return cur;
+        }
+        ListNode next = cur.next;
+        cur.next = pre;
+        return tailRecursion(cur, next);
+    }
+
     public static void main(String[] args) {
         ReverseLinkedList r = new ReverseLinkedList();
         ListNode head = new ListNode(1);
         head.next = new ListNode(2);
         head.next.next = new ListNode(3);
-        ListNode res = r.reverseWithRecursion(head);
+//        ListNode res = r.reverseWithRecursion(head);
+//        for (ListNode cur = res; cur != null; cur = cur.next) {
+//            System.out.println(cur.val);
+//        }
+
+        ListNode res = r.reverseTailRecursion(head);
         for (ListNode cur = res; cur != null; cur = cur.next) {
             System.out.println(cur.val);
         }

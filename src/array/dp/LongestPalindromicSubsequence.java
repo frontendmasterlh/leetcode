@@ -33,7 +33,7 @@ public class LongestPalindromicSubsequence {
                 }
             }
         }
-        for (int len = 2; len <= s.length(); len++) {
+        for (int len = 2; len <= s.length(); len++) {  // len must get started from 2. Some of them aren't assigned a value.
             for (int i = 0; i <= s.length() - len; i++) {
                 int j = i + len - 1;
                 if (s.charAt(i) == s.charAt(j)) {

@@ -39,6 +39,7 @@ public class FindLeavesOfBinaryTree {
         }
     }
 
+    // Time: O(n^2) Space: O(n)
     public List<List<Integer>> findLeaves(TreeNode root) {
         List<List<Integer>> res = new ArrayList<>();
         List<Integer> temp = new ArrayList<>();
@@ -76,7 +77,7 @@ public class FindLeavesOfBinaryTree {
         return root != null && root.left == null && root.right == null;
     }
 
-
+    // Time: O(n) Space: O(n)
     public List<List<Integer>> findLeavesWithDivideAndConquer(TreeNode root) {
         List<List<Integer>> res = new ArrayList<>();
         divideAndConquerHelper(root, res);

@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.Stack;
 
 /**
- * Created by jli1 on 11/5/16.
+ * https://stackoverflow.com/questions/20398799/find-k-nearest-points-to-point-p-in-2-dimensional-plane
  */
 public class QuickSort {
 

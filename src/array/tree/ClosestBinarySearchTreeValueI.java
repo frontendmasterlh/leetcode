@@ -24,7 +24,7 @@ public class ClosestBinarySearchTreeValueI {
             return root.val;
         }
         int closest = closestValue(kid, target);
-        return Math.abs(root.val - target) > Math.abs(kid.val - target) ? closest : root.val;
+        return Math.abs(root.val - target) > Math.abs(closest - target) ? closest : root.val;
     }
 
     // Iteration Time: O(logN) Space: O(1)

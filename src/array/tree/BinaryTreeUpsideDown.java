@@ -36,7 +36,7 @@ public class BinaryTreeUpsideDown {
         TreeNode left = root.left;
         TreeNode right = root.right;
         if (left != null) {
-            TreeNode res = upsideDownBinaryTree(root);
+            TreeNode res = upsideDownBinaryTree(left);
             left.left = right;
             left.right = root;
             root.left = null;
@@ -50,7 +50,7 @@ public class BinaryTreeUpsideDown {
         TreeNode parent = null;
         TreeNode right = null;
         while (node != null) {
-            TreeNode left = root.left;
+            TreeNode left = node.left;
             node.left = right;
             right = node.right;
             node.right = parent;

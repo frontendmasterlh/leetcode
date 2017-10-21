@@ -45,6 +45,39 @@ public class MergeKSortedLists {
         return dummy.next;
     }
 
+    public ListNode mergeKListsWithMergeSort(ListNode[] lists) {
+        if (lists == null || lists.length == 0) {
+            return null;
+        }
+        return partition(lists, 0, lists.length - 1);
+    }
+
+    private ListNode partition(ListNode[] lists, int start, int end) {
+        if (start == end) {
+            return lists[start];
+        }
+        int mid = start + (end - start) / 2;
+        ListNode left = partition(lists, start, mid);
+        ListNode right = partition(lists, mid + 1, end);
+        return merge(left, right);
+    }
+
+    private ListNode merge(ListNode left, ListNode right) {
+        if (left == null) {
+            return right;
+        }
+        if (right == null) {
+            return left;
+        }
+        if (left.val < right.val) {
+            left.next = merge(left.next, right);
+            return left;
+        } else {
+            right.next = merge(left, right.next);
+            return right;
+        }
+    }
+
     public static void main(String[] args) {
         Map<Integer, Integer> map = new HashMap<>();
 

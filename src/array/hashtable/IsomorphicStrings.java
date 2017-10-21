@@ -48,14 +48,29 @@ public class IsomorphicStrings {
         return true;
     }
 
+    public boolean isIsomorphicIII(String s, String t) {
+        // Without using hashmap: Time: O(n) Space: O(k)
+        int[] sArr = new int[256];
+        int[] tArr = new int[256];
+        for (int i = 0; i < s.length(); i++) {
+            if (sArr[s.charAt(i)] != tArr[t.charAt(i)]) {
+                return false;
+            }
+            sArr[s.charAt(i)] = i + 1; // Plus 1 is essential. Otherwise we can't tell the first one.
+            tArr[t.charAt(i)] = i + 1;
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         IsomorphicStrings i = new IsomorphicStrings();
-        System.out.println(i.isIsomorphic("egg", "add"));
-        System.out.println(i.isIsomorphic("foo", "bar"));
-
-        System.out.println(i.isIsomorphic("ab", "ca"));
-
-        System.out.println(i.isIsomorphicII("egg", "add"));
-        System.out.println(i.isIsomorphicII("foo", "bar"));
+        System.out.println(i.isIsomorphicII("aba", "baa"));
+//        System.out.println(i.isIsomorphic("egg", "add"));
+//        System.out.println(i.isIsomorphic("foo", "bar"));
+//
+//        System.out.println(i.isIsomorphic("ab", "ca"));
+//
+//        System.out.println(i.isIsomorphicII("egg", "add"));
+//        System.out.println(i.isIsomorphicII("foo", "bar"));
     }
 }

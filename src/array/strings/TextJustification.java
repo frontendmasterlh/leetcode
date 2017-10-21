@@ -33,42 +33,38 @@ public class TextJustification {
         }
         int begin = 0;
         while (begin < words.length) {
-            int idx = begin;
+            int tempSize = 0;
             int curSize = 0;
-            while (idx < words.length) {
-                int tempSize = curSize == 0 ? words[idx].length() : curSize + words[idx].length() + 1;
-                if (tempSize <= maxWidth) {
-                    curSize = tempSize;
-                } else {
+            int idx = begin;
+            for (; idx < words.length; idx++) {
+                tempSize = curSize == 0 ? words[idx].length() : curSize + words[idx].length() + 1;
+                if (tempSize > maxWidth) {
                     break;
+                } else {
+                    curSize = tempSize;
                 }
-                idx++;
             }
+
             int end = idx - 1;
             int eachSpace = 0;
             int remainSpace = maxWidth - curSize;
-            if (end != begin && end != words.length - 1) {
+            if (begin != end && end != words.length - 1) {
                 eachSpace = remainSpace / (end - begin);
-                remainSpace = remainSpace % (end - begin);
-            } else {
-                eachSpace = 0;
+                remainSpace %= (end - begin);
             }
-
             StringBuilder line = new StringBuilder();
             for (int i = begin; i <= end; i++) {
-                if (i == begin) {
-                    line.append(words[i]);
-                } else {
+                if (i != begin) {
                     line.append(" ");
                     for (int j = 0; j < eachSpace; j++) {
                         line.append(" ");
                     }
-                    if (remainSpace > 0 && end != words.length - 1) { // If it's the last line, then there's no need to add
-                        line.append(" ");                             // remaining space.
+                    if (remainSpace > 0 && end != words.length - 1) {// If it's the last line, then there's no need to add
+                        line.append(" ");                            // remaining space.
                         remainSpace--;
                     }
-                    line.append(words[i]);
                 }
+                line.append(words[i]);
             }
             while (remainSpace > 0) {
                 line.append(" ");
@@ -82,8 +78,10 @@ public class TextJustification {
 
     public static void main(String[] args) {
         TextJustification t = new TextJustification();
-        String[] words = {"What","must","be","shall","be."};
-        int length = 12;
+//        String[] words = {"What","must","be","shall","be."};
+//        int length = 12;
+        String[] words = {"My","momma","always","said,","\"Life","was","like","a","box","of","chocolates.","You","never","know","what","you're","gonna","get."};
+        int length = 20;
         List<String> res = t.fullJustify(words, length);
         for (String str : res) {
             System.out.println(str + ",");
